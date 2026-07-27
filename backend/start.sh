@@ -6,7 +6,7 @@ echo "==================================="
 
 # Run database migrations before starting the server
 echo "📦 Running Alembic database migrations..."
-python -m alembic.config upgrade head
+/root/.local/bin/alembic upgrade head
 echo "✅ Migrations complete."
 
 # Start uvicorn with production settings
