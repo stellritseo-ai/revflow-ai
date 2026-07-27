@@ -23,14 +23,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /root/.local /root/.local
+RUN useradd -m -s /bin/bash appuser
 
-RUN useradd -m -s /bin/bash appuser && \
-    chown -R appuser:appuser /app /root/.local
+COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
+
+RUN chown -R appuser:appuser /app
 
 COPY --chown=appuser:appuser . /app
 
-ENV PATH=/root/.local/bin:$PATH \
+ENV PATH=/home/appuser/.local/bin:$PATH \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app
