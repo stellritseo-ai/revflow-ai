@@ -6,12 +6,12 @@ echo "==================================="
 
 # Run database migrations before starting the server
 echo "📦 Running Alembic database migrations..."
-alembic upgrade head
+python -m alembic upgrade head
 echo "✅ Migrations complete."
 
 # Start uvicorn with production settings
 echo "🌐 Starting FastAPI server..."
-exec uvicorn app.main:app \
+exec python -m uvicorn app.main:app \
   --host 0.0.0.0 \
   --port "${PORT:-8000}" \
   --workers "${WORKERS:-2}" \
